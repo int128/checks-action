@@ -14,6 +14,8 @@ jobs:
         with:
           operation: create-check-run
           check-run-name: example-check
+          title: Example Check Run
+          summary: This is an example check run created by checks-action.
 ```
 
 ### Get a check run
