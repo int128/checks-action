@@ -4,9 +4,9 @@ import { createCheckRun, getCheckRun } from './run.js'
 
 const main = async (): Promise<void> => {
   const operation = core.getInput('operation', { required: true })
-  if (operation === 'create') {
+  if (operation === 'create-check-run') {
     await createCheckRun(getOctokit(), await getContext())
-  } else if (operation === 'get') {
+  } else if (operation === 'get-check-run') {
     await getCheckRun(getOctokit(), await getContext())
   } else {
     throw new Error(`Unsupported operation: ${operation}`)

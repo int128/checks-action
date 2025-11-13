@@ -12,7 +12,19 @@ jobs:
     steps:
       - uses: int128/checks-action@v1
         with:
-          operation: create
+          operation: create-check-run
+          check-run-name: example-check
+```
+
+### Get a check run
+
+```yaml
+jobs:
+  test:
+    steps:
+      - uses: int128/checks-action@v1
+        with:
+          operation: get-check-run
           check-run-name: example-check
 ```
 
@@ -21,10 +33,10 @@ jobs:
 You need to specify the `operation` input to choose which operation to perform.
 Either of:
 
-- `create`: Create a check run
-- `get`: Get a check run
+- `create-check-run`: Create a check run
+- `get-check-run`: Get a check run
 
-### `create` operation
+### `create-check-run` operation
 
 Inputs:
 
@@ -43,7 +55,7 @@ Outputs:
 | -------------- | ----------------------- |
 | `check-run-id` | The ID of the check run |
 
-### `get` operation
+### `get-check-run` operation
 
 Inputs:
 

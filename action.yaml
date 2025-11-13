@@ -3,25 +3,25 @@ description: General-purpose action for GitHub Checks API
 
 inputs:
   operation:
-    description: The operation to perform (create or get)
+    description: The operation to perform
     required: true
   check-run-name:
     description: The name of the check run
     required: true
   title:
-    description: The title of the check run (required for create operation)
+    description: The title of the check run
     required: false
   summary:
-    description: The summary of the check run (required for create operation)
+    description: The summary of the check run
     required: false
   text:
-    description: The text of the check run (required for create operation)
+    description: The text of the check run
     required: false
   details-url:
-    description: The details URL for the check run (optional)
+    description: The details URL for the check run
     required: false
   sha:
-    description: The commit SHA for the check run (optional)
+    description: The commit SHA for the check run
     required: false
   token:
     description: GitHub token

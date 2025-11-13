@@ -36,28 +36,27 @@ jobs:
       - run: pnpm run test
       - run: pnpm run build
 
-      - id: e2e-create
-        name: Run int128/checks-action (create)
+      - name: Run int128/checks-action (create-check-run)
         uses: ./
         with:
-          operation: create
-          check-run-name: e2e-test / create
-          title: E2E Test (create operation)
+          operation: create-check-run
+          check-run-name: e2e-test / create-check-run
+          title: E2E Test (create-check-run)
           summary: |
-            This check runs end-to-end tests for the "create" operation.
+            This check runs end-to-end tests for the "create-check-run" operation.
             It should create a check run successfully.
           text: |
             {"value": 123}
 
-      - id: e2e-get
-        name: Run int128/checks-action (get)
+      - id: e2e-get-check-run
+        name: Run int128/checks-action (get-check-run)
         uses: ./
         with:
-          operation: get
-          check-run-name: e2e-test / create
+          operation: get-check-run
+          check-run-name: e2e-test / create-check-run
       - run: echo "$CHECK_RUN_TEXT" | jq .
         env:
-          CHECK_RUN_TEXT: ${{ steps.e2e-get.outputs.text }}
+          CHECK_RUN_TEXT: ${{ steps.e2e-get-check-run.outputs.check-run-text }}
 
   generate:
     runs-on: ubuntu-latest
