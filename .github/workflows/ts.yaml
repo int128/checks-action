@@ -36,7 +36,8 @@ jobs:
       - run: pnpm run test
       - run: pnpm run build
 
-      - name: Run int128/checks-action
+      - id: e2e-create
+        name: Run int128/checks-action (create)
         uses: ./
         with:
           operation: create
@@ -44,6 +45,19 @@ jobs:
           title: E2E Test (create operation)
           summary: |
             This check runs end-to-end tests for the "create" operation.
+            It should create a check run successfully.
+          text: |
+            {"value": 123}
+
+      - id: e2e-get
+        name: Run int128/checks-action (get)
+        uses: ./
+        with:
+          operation: get
+          check-run-name: e2e-test / create
+      - run: echo "$CHECK_RUN_TEXT" | jq .
+        env:
+          CHECK_RUN_TEXT: ${{ steps.e2e-get.outputs.text }}
 
   generate:
     runs-on: ubuntu-latest

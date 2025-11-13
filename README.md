@@ -13,14 +13,16 @@ jobs:
       - uses: int128/checks-action@v1
         with:
           operation: create
-          check-name: example-check
+          check-run-name: example-check
 ```
 
 ## Specification
 
-| Name        | Default    | Description                                           |
-| ----------- | ---------- | ----------------------------------------------------- |
-| `operation` | (required) | The operation to perform. Either of `create` or `get` |
+You need to specify the `operation` input to choose which operation to perform.
+Either of:
+
+- `create`: Create a check run
+- `get`: Get a check run
 
 ### `create` operation
 
@@ -37,6 +39,24 @@ Inputs:
 
 Outputs:
 
-| Name      | Description    |
-| --------- | -------------- |
-| `example` | example output |
+| Name           | Description             |
+| -------------- | ----------------------- |
+| `check-run-id` | The ID of the check run |
+
+### `get` operation
+
+Inputs:
+
+| Name             | Default               | Description                      |
+| ---------------- | --------------------- | -------------------------------- |
+| `check-run-name` | (required)            | The name of the check run to get |
+| `sha`            | Inferred from context | The commit SHA for the check run |
+
+Outputs:
+
+| Name                | Description                  |
+| ------------------- | ---------------------------- |
+| `check-run-id`      | The ID of the check run      |
+| `check-run-title`   | The title of the check run   |
+| `check-run-summary` | The summary of the check run |
+| `check-run-text`    | The text of the check run    |
