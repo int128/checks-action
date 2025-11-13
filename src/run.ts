@@ -7,6 +7,7 @@ type CreateInputs = {
   title: string
   summary: string
   text?: string
+  detailsUrl?: string
   sha?: string
 }
 
@@ -22,6 +23,7 @@ export const create = async (inputs: CreateInputs, octokit: Octokit, context: Co
       summary: inputs.summary,
       text: inputs.text,
     },
+    details_url: inputs.detailsUrl,
     status: 'completed',
     conclusion: 'success',
   })

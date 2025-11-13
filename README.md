@@ -29,10 +29,11 @@ Inputs:
 | Name             | Default               | Description                         |
 | ---------------- | --------------------- | ----------------------------------- |
 | `check-run-name` | (required)            | The name of the check run to create |
-| `sha`            | Inferred from context | The commit SHA for the check        |
-| `title`          | (required)            | The title of the check              |
-| `summary`        | (required)            | The summary of the check            |
-| `text`           | -                     | The text of the check               |
+| `sha`            | Inferred from context | The commit SHA for the check run    |
+| `title`          | (required)            | The title of the check run          |
+| `summary`        | (required)            | The summary of the check run        |
+| `text`           | -                     | The text of the check run           |
+| `details-url`    | -                     | The details URL of the check run    |
 
 Outputs:
 

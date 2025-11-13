@@ -11,6 +11,7 @@ const main = async (): Promise<void> => {
         title: core.getInput('title', { required: true }),
         summary: core.getInput('summary', { required: true }),
         text: core.getInput('text') || undefined,
+        detailsUrl: core.getInput('details-url') || undefined,
         sha: core.getInput('sha') || undefined,
       },
       getOctokit(),
