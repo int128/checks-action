@@ -4,7 +4,7 @@ This is a general-purpose action for GitHub Checks API.
 
 ## Getting Started
 
-### Create a check
+### Create a check run
 
 ```yaml
 jobs:
@@ -26,13 +26,13 @@ jobs:
 
 Inputs:
 
-| Name         | Default               | Description                     |
-| ------------ | --------------------- | ------------------------------- |
-| `check-name` | (required)            | The name of the check to create |
-| `sha`        | Inferred from context | The commit SHA for the check    |
-| `title`      | (required)            | The title of the check          |
-| `summary`    | (required)            | The summary of the check        |
-| `text`       | -                     | The text of the check           |
+| Name             | Default               | Description                         |
+| ---------------- | --------------------- | ----------------------------------- |
+| `check-run-name` | (required)            | The name of the check run to create |
+| `sha`            | Inferred from context | The commit SHA for the check        |
+| `title`          | (required)            | The title of the check              |
+| `summary`        | (required)            | The summary of the check            |
+| `text`           | -                     | The text of the check               |
 
 Outputs:
 

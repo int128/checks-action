@@ -7,7 +7,7 @@ const main = async (): Promise<void> => {
   if (operation === 'create') {
     await create(
       {
-        checkName: core.getInput('check-name', { required: true }),
+        checkRunName: core.getInput('check-run-name', { required: true }),
         title: core.getInput('title', { required: true }),
         summary: core.getInput('summary', { required: true }),
         text: core.getInput('text') || undefined,

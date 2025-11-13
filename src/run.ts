@@ -3,7 +3,7 @@ import type { Octokit } from '@octokit/action'
 import type { Context } from './github.js'
 
 type CreateInputs = {
-  checkName: string
+  checkRunName: string
   title: string
   summary: string
   text?: string
@@ -11,19 +11,21 @@ type CreateInputs = {
 }
 
 export const create = async (inputs: CreateInputs, octokit: Octokit, context: Context): Promise<void> => {
-  core.info(`Creating check run ${inputs.checkName}`)
+  core.info(`Creating a check run: ${inputs.checkRunName}`)
   const { data: created } = await octokit.checks.create({
     owner: context.repo.owner,
     repo: context.repo.repo,
-    name: inputs.checkName,
+    name: inputs.checkRunName,
     head_sha: inputs.sha ?? inferHeadShaFromContext(context),
     output: {
       title: inputs.title,
       summary: inputs.summary,
       text: inputs.text,
     },
+    status: 'completed',
+    conclusion: 'success',
   })
-  core.info(`Created check run: ${created.html_url}`)
+  core.info(`Created a check run: ${created.html_url}`)
 }
 
 const inferHeadShaFromContext = (context: Context): string => {
