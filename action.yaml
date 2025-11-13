@@ -31,6 +31,12 @@ inputs:
 outputs:
   check-run-id:
     description: The ID of the created or retrieved check run
+  check-run-title:
+    description: The title of the retrieved check run
+  check-run-summary:
+    description: The summary of the retrieved check run
+  check-run-text:
+    description: The text of the retrieved check run
 
 runs:
   using: 'node20'
