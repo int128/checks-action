@@ -1,89 +1,41 @@
-# typescript-action [![ts](https://github.com/int128/typescript-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/typescript-action/actions/workflows/ts.yaml)
+# checks-action [![ts](https://github.com/int128/checks-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/checks-action/actions/workflows/ts.yaml)
 
-This is a template of TypeScript action.
-Inspired from https://github.com/actions/typescript-action.
-
-## Features
-
-- Ready to develop with the minimum configs
-  - tsconfig
-  - Biome
-  - Vitest
-- Automated continuous release
-- Keep consistency of generated files
-- Shipped with Renovate config
+This is a general-purpose action for GitHub Checks API.
 
 ## Getting Started
 
-Click `Use this template` to create a repository.
-
-An initial release `v0.0.0` is automatically created by GitHub Actions.
-You can see the generated files in `dist` directory on the tag.
-
-Then, checkout your repository and test it. Node.js is required.
-
-```console
-$ git clone https://github.com/your/repo.git
-
-$ pnpm i
-$ pnpm test
-```
-
-Create a pull request with your change.
-
-After merging the pull request, a new minor release (such as `v0.1.0`) is created.
-
-### Stable release
-
-When you want to create a stable release, change the major version in [release workflow](.github/workflows/release.yaml).
-
-```yaml
-- uses: int128/release-typescript-action@v1
-  with:
-    major-version: 1
-```
-
-Then a new stable release `v1.0.0` is created.
-
-## Specification
-
-To run this action, create a workflow as follows:
+### Create a check
 
 ```yaml
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
     steps:
-      - uses: int128/typescript-action@v1
+      - uses: int128/checks-action@v1
         with:
-          name: hello
+          operation: create
+          check-name: example-check
 ```
 
-### Inputs
+## Specification
 
-| Name   | Default    | Description   |
-| ------ | ---------- | ------------- |
-| `name` | (required) | example input |
+| Name        | Default    | Description                                           |
+| ----------- | ---------- | ----------------------------------------------------- |
+| `operation` | (required) | The operation to perform. Either of `create` or `get` |
 
-### Outputs
+### `create` operation
+
+Inputs:
+
+| Name         | Default               | Description                     |
+| ------------ | --------------------- | ------------------------------- |
+| `check-name` | (required)            | The name of the check to create |
+| `sha`        | Inferred from context | The commit SHA for the check    |
+| `title`      | (required)            | The title of the check          |
+| `summary`    | (required)            | The summary of the check        |
+| `text`       | -                     | The text of the check           |
+
+Outputs:
 
 | Name      | Description    |
 | --------- | -------------- |
 | `example` | example output |
-
-## Development
-
-### Release workflow
-
-When a pull request is merged into main branch, a new minor release is created by GitHub Actions.
-See https://github.com/int128/release-typescript-action for details.
-
-### Keep consistency of generated files
-
-If a pull request needs to be fixed by Prettier, an additional commit to fix it will be added by GitHub Actions.
-See https://github.com/int128/update-generated-files-action for details.
-
-### Dependency update
-
-You can enable Renovate to update the dependencies.
-This repository is shipped with the config https://github.com/int128/typescript-action-renovate-config.

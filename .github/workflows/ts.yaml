@@ -33,10 +33,14 @@ jobs:
       - run: pnpm run test
       - run: pnpm run build
 
-      - name: Run int128/typescript-action
+      - name: Run int128/checks-action
         uses: ./
         with:
-          name: foo
+          operation: create
+          check-name: e2e-test / create
+          title: E2E Test (create operation)
+          summary: |
+            This check runs end-to-end tests for the "create" operation.
 
   generate:
     runs-on: ubuntu-latest
