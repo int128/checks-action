@@ -1,89 +1,74 @@
-# typescript-action [![ts](https://github.com/int128/typescript-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/typescript-action/actions/workflows/ts.yaml)
+# checks-action [![ts](https://github.com/int128/checks-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/checks-action/actions/workflows/ts.yaml)
 
-This is a template of TypeScript action.
-Inspired from https://github.com/actions/typescript-action.
-
-## Features
-
-- Ready to develop with the minimum configs
-  - tsconfig
-  - Biome
-  - Vitest
-- Automated continuous release
-- Keep consistency of generated files
-- Shipped with Renovate config
+This is a general-purpose action for GitHub Checks API.
 
 ## Getting Started
 
-Click `Use this template` to create a repository.
-
-An initial release `v0.0.0` is automatically created by GitHub Actions.
-You can see the generated files in `dist` directory on the tag.
-
-Then, checkout your repository and test it. Node.js is required.
-
-```console
-$ git clone https://github.com/your/repo.git
-
-$ pnpm i
-$ pnpm test
-```
-
-Create a pull request with your change.
-
-After merging the pull request, a new minor release (such as `v0.1.0`) is created.
-
-### Stable release
-
-When you want to create a stable release, change the major version in [release workflow](.github/workflows/release.yaml).
-
-```yaml
-- uses: int128/release-typescript-action@v1
-  with:
-    major-version: 1
-```
-
-Then a new stable release `v1.0.0` is created.
-
-## Specification
-
-To run this action, create a workflow as follows:
+### Create a check run
 
 ```yaml
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
     steps:
-      - uses: int128/typescript-action@v1
+      - uses: int128/checks-action@v1
         with:
-          name: hello
+          operation: create-check-run
+          check-run-name: example-check
 ```
 
-### Inputs
+### Get a check run
 
-| Name   | Default    | Description   |
-| ------ | ---------- | ------------- |
-| `name` | (required) | example input |
+```yaml
+jobs:
+  test:
+    steps:
+      - uses: int128/checks-action@v1
+        with:
+          operation: get-check-run
+          check-run-name: example-check
+```
 
-### Outputs
+## Specification
 
-| Name      | Description    |
-| --------- | -------------- |
-| `example` | example output |
+You need to specify the `operation` input to choose which operation to perform.
+Either of:
 
-## Development
+- `create-check-run`: Create a check run
+- `get-check-run`: Get a check run
 
-### Release workflow
+### `create-check-run` operation
 
-When a pull request is merged into main branch, a new minor release is created by GitHub Actions.
-See https://github.com/int128/release-typescript-action for details.
+Inputs:
 
-### Keep consistency of generated files
+| Name             | Default               | Description                         |
+| ---------------- | --------------------- | ----------------------------------- |
+| `check-run-name` | (required)            | The name of the check run to create |
+| `sha`            | Inferred from context | The commit SHA for the check run    |
+| `title`          | (required)            | The title of the check run          |
+| `summary`        | (required)            | The summary of the check run        |
+| `text`           | -                     | The text of the check run           |
+| `details-url`    | -                     | The details URL of the check run    |
 
-If a pull request needs to be fixed by Prettier, an additional commit to fix it will be added by GitHub Actions.
-See https://github.com/int128/update-generated-files-action for details.
+Outputs:
 
-### Dependency update
+| Name           | Description             |
+| -------------- | ----------------------- |
+| `check-run-id` | The ID of the check run |
 
-You can enable Renovate to update the dependencies.
-This repository is shipped with the config https://github.com/int128/typescript-action-renovate-config.
+### `get-check-run` operation
+
+Inputs:
+
+| Name             | Default               | Description                      |
+| ---------------- | --------------------- | -------------------------------- |
+| `check-run-name` | (required)            | The name of the check run to get |
+| `sha`            | Inferred from context | The commit SHA for the check run |
+
+Outputs:
+
+| Name                | Description                  |
+| ------------------- | ---------------------------- |
+| `check-run-id`      | The ID of the check run      |
+| `check-run-title`   | The title of the check run   |
+| `check-run-summary` | The summary of the check run |
+| `check-run-text`    | The text of the check run    |

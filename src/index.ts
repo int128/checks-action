@@ -1,15 +1,20 @@
 import * as core from '@actions/core'
 import { getContext, getOctokit } from './github.js'
-import { run } from './run.js'
+import { createCheckRun, getCheckRun } from './run.js'
+
+const main = async (): Promise<void> => {
+  const operation = core.getInput('operation', { required: true })
+  if (operation === 'create-check-run') {
+    await createCheckRun(getOctokit(), await getContext())
+  } else if (operation === 'get-check-run') {
+    await getCheckRun(getOctokit(), await getContext())
+  } else {
+    throw new Error(`Unsupported operation: ${operation}`)
+  }
+}
 
 try {
-  await run(
-    {
-      name: core.getInput('name', { required: true }),
-    },
-    getOctokit(),
-    await getContext(),
-  )
+  await main()
 } catch (e) {
   core.setFailed(e instanceof Error ? e : String(e))
   console.error(e)
