@@ -39,5 +39,5 @@ outputs:
     description: The text of the retrieved check run
 
 runs:
-  using: 'node24'
-  main: 'dist/index.js'
+  using: "node24"
+  main: "dist/index.js"
